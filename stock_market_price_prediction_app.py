@@ -74,9 +74,13 @@ elif option == 'Upload CSV File':
     if uploaded_file is not None:
         data = pd.read_csv(uploaded_file)
 
-        # Assume the CSV has 'Date' and 'Close' columns
-        data['Date'] = pd.to_datetime(data['Date'])
-        data.set_index('Date', inplace=True)
+        # Auto-detect date column
+        date_column = next((col for col in data.columns if 'date' in col.lower()), None)
+        if not date_column:
+            st.error("❌ No valid 'Date' column found in uploaded file. Please check your CSV.")
+        else:
+            data[date_column] = pd.to_datetime(data[date_column])
+            data.set_index(date_column, inplace=True)
 
         # Feature Scaling
         scaler = MinMaxScaler(feature_range=(0, 1))
