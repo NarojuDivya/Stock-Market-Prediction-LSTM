@@ -47,7 +47,8 @@ The first step is to get the data and load it to memory. We will get our stock d
 In this section we'll go over how to handle requesting stock information with pandas, and how to analyze basic attributes of a stock.
 """
 
-!pip install -q yfinance
+pip install yfinance
+
 
 # Commented out IPython magic to ensure Python compatibility.
 import pandas as pd
